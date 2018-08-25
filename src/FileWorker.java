@@ -1,9 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class FileWorker {
-    ArrayList<Integer> ar1 = new ArrayList<>();
+    ArrayList<Integer> list = new ArrayList<>();
     ;
     int i = 0;
 
@@ -13,15 +12,11 @@ public class FileWorker {
 
         while ((s = br.readLine()) != null) {
 
-            ar1.add(Integer.parseInt(s));
+            list.add(Integer.parseInt(s));
         }
-
-       // Collections.sort(ar1);//проверка ручной сортировки
-       // System.out.println(ar1);
-
     }
 public ArrayList getAr(){
-        return ar1;
+        return list;
 }
 
 }

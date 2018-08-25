@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class MergeSort {
+public class Sort {
     private boolean ascending;
     private boolean intOrString;
     ArrayList list;
@@ -14,7 +14,7 @@ public class MergeSort {
         }
     }
 
-    void MergeSort(List list,boolean ascending,boolean intOrString) {
+    void Sort(List list,boolean ascending,boolean intOrString) {
         this.intOrString=intOrString;
         this.ascending=ascending;
         if (this.ascending) {
