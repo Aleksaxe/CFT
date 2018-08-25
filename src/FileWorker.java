@@ -12,14 +12,16 @@ public class FileWorker {
         String s;
 
         while ((s = br.readLine()) != null) {
-            //нужна обработка только инт!
+
             ar1.add(Integer.parseInt(s));
         }
 
-        Collections.sort(ar1);
-        System.out.println(ar1);
+       // Collections.sort(ar1);//проверка ручной сортировки
+       // System.out.println(ar1);
 
     }
-
+public ArrayList getAr(){
+        return ar1;
+}
 
 }
