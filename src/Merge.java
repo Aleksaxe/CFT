@@ -3,18 +3,15 @@ import java.util.ArrayList;
 public class Merge {
     ArrayList list1;
     ArrayList list2;
-    Integer[] ar1;
-    Integer[] ar2;
+    Object[] ar1;
+    Object[] ar2;
     public Merge(ArrayList list1, ArrayList list2) {
         this.list1 = list1;
         this.list2 = list2;
-        ar1 = (Integer[]) list1.toArray(new Integer[list1.size()]);
-        ar2 = (Integer[]) list1.toArray(new Integer[list2.size()]);
+        ar1 =  list1.toArray(new Integer[list1.size()]);
+        ar2 =  list1.toArray(new Integer[list2.size()]);
 
-        //int[] ar3=ar1;
-       // int[] ar4=new int[ar2.length];
-      //  for (int i=0;i<ar3.length;i++) System.out.println(ar3[i]);
-       // merging(ar3,ar4);
+
     }
 
 

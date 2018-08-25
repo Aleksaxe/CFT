@@ -6,7 +6,8 @@ public class Main {
     FileWorker f2=new FileWorker("2.txt");
     Sort s=new Sort();
     s.Sort(f2.getAr(),false,true);
-
-        Merge m=new Merge(f1.getAr(),f2.getAr());
+        System.out.println(f2.getAr());
+       Merge m=new Merge(f1.getAr(),f2.getAr());
+        System.out.println(f2.getAr());
     }
 }
