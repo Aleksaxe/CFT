@@ -2,7 +2,6 @@ package ru.cft.Axenov.MergeSorter;
 
 import java.io.*;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
