@@ -28,7 +28,7 @@ class FileSorter<T> {
      */
     public void outWrite() throws IOException {
 
-        //отерываем выходной файл
+        //открываем выходной файл
         try(FileWriter fw = new FileWriter(outFileName)) {
             try (BufferedWriter bw = new BufferedWriter(fw)) {
                 try (PrintWriter pw = new PrintWriter(bw)) {
