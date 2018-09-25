@@ -12,8 +12,8 @@ public class Main {
         int d = r.nextInt(delta);
         entries = entries - d;
         File f = new File(fileName);
-        //  if (f.exists()) f.delete();
-        //  f.createNewFile();
+        //if (f.exists()) f.delete();
+        //f.createNewFile();
         try (PrintStream fn = new PrintStream(f)) {
             for (int i = start; i < start + entries; i++) {
                 if (r.nextBoolean()) fn.println(i);
@@ -25,7 +25,7 @@ public class Main {
     private static void getTestFiles(int filesNumber, int entries, int delta) throws IOException {
         int start = 0;
         for (int i = 0; i < filesNumber; i++) {
-            start = getTestFile("E:\\mergeSortTest\\" + (i + 1) + ".txt", start, entries, delta);
+            start = getTestFile("D:\\" + (i + 1) + ".txt", start, entries, delta);
         }
     }
 
@@ -33,14 +33,20 @@ public class Main {
                                          int dir) throws IOException {
         try (FileReader fr = new FileReader(new File(fileName))) {
             try (BufferedReader st = new BufferedReader(fr)) {
-                T prev;
+                T prev;// предъидущая строка
                 String line = st.readLine();
+                /*
+                * Function(функция) используется для преобразования
+                * входного параметра или в двух параметров (для BiFunction)
+                 * в какое-либо значение, тип значение может не совпадать с типом входных параметров.
+                * */
                 prev = parse.apply(line);
                 line = st.readLine();
                 while (line != null) {
-                    T next = parse.apply(line);
+                    T next = parse.apply(line);//следующая строка
                     Integer d = compare.apply(prev, next);
                     if (d != 0) {
+                        //полчаем модуль числа
                         d = d / Math.abs(d);
                         if (d != dir) {
                             System.out.println("Отсортировано ошибочно");
@@ -59,8 +65,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         boolean restart = true;
 
-            //getTestFiles(2, 5000, 2500);
-            //checkOutFile("E:\\mergeSortTest\\out.txt", s -> Integer.parseInt(s), (i1, i2) -> i2.compareTo(i1), 1);
+            getTestFiles(2, 5000, 2500);
+            checkOutFile("D:\\out.txt", s -> Integer.parseInt(s), (i1, i2) -> i2.compareTo(i1), 1);
             //Создаем экземпляр LA для передачи аргументов командной строки
             LaunchArgs commandlineArguments = new LaunchArgs(args);
             //Направление сортировки
