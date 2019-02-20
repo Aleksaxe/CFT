@@ -9,7 +9,9 @@ class FileHead<T> {
     private BufferedReader br;
     private FileReader reader;
     private boolean finishReached;
+    //Бифункция для сравнивания
     private BiFunction<T, T, Integer> comparer;
+    //Функциия для приведения
     private Function<String, T> converter;
 
 
@@ -18,61 +20,61 @@ class FileHead<T> {
      * @throws FileNotFoundException
      */
     FileHead(File filepath, BiFunction<T, T, Integer> comparer, Function<String, T> converter) {
-        boolean restart=true;
+        boolean restart = true;
 
-            try {
-                reader = new FileReader(filepath);
-            } catch (FileNotFoundException e) {
-                System.out.println("Файл не найден или не правильно введен путь к файлу.");
-            }
+        try {
+            reader = new FileReader(filepath);
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден или не правильно введен путь к файлу.");
+        }
         br = new BufferedReader(reader);
         this.comparer = comparer;
         this.converter = converter;
 
-}
-	T getHeadData() {
-		return headData;
-	}
-	
-	public boolean canAdvance(){
-		return !finishReached;
-	}
+    }
+
+    T getHeadData() {
+        return headData;
+    }
+
+    public boolean canAdvance() {
+        return !finishReached;
+    }
 
     /**
-     *
      * @param lastOutputWritten последняя запись для сравнения
      * @throws IOException
      */
-	public void tryAdvance(T lastOutputWritten) throws IOException {
+    public void tryAdvance(T lastOutputWritten) throws IOException {
 
-		String line;
-		T data = null;
-		while ((line = br.readLine()) != null) {
-			data = converter.apply(line);
-			boolean invalidOrder = comparer.apply(data,lastOutputWritten) > 0;
+        String line;
+        T data = null;
+        while ((line = br.readLine()) != null) {
+            data = converter.apply(line);
+            boolean invalidOrder = comparer.apply(data, lastOutputWritten) > 0;
 
-			if (invalidOrder&&lastOutputWritten!=null){
-				System.out.println("Нарушен порядок сортировки: элемент " + line +
-						" меньше последнего записанного в выходной файл элемента "
-						+ lastOutputWritten.toString());
-			}else{
-				break;
-			}
-		}
-		//если читать больше нечего то  закрываем поток
-		if (line==null) {
-			finishReached = true;
-			close();
-		}
-		// и присваиваем данные...
-		headData = data;
+            if (invalidOrder && lastOutputWritten != null) {
+                System.out.println("Нарушен порядок сортировки: элемент " + line +
+                        " меньше последнего записанного в выходной файл элемента "
+                        + lastOutputWritten.toString());
+            } else {
+                break;
+            }
+        }
+        //если читать больше нечего то  закрываем поток
+        if (line == null) {
+            finishReached = true;
+            close();
+        }
+        // и присваиваем данные...
+        headData = data;
 
-	}
+    }
 
-	//закрываем ридеры
-	private void close() throws IOException {
-		br.close();
-		reader.close();
-	}
+    //закрываем ридеры
+    private void close() throws IOException {
+        br.close();
+        reader.close();
+    }
 
 }
