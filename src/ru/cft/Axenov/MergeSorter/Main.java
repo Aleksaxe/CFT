@@ -58,8 +58,8 @@ public class Main {
     public static void launch(String[]args)throws Exception{
         boolean restart = true;
 
-        //getTestFiles(2, 5000, 2500);
-        //checkOutFile("E:\\mergeSortTest\\out.txt", s -> Integer.parseInt(s), (i1, i2) -> i2.compareTo(i1), 1);
+        getTestFiles(3, 5000, 100);
+        checkOutFile("E:\\mergeSortTest\\out.txt", s -> Integer.parseInt(s), (i1, i2) -> i2.compareTo(i1), 1);
         //Создаем экземпляр LA для передачи аргументов командной строки
         LaunchArgs commandlineArguments = new LaunchArgs(args);
         //Направление сортировки

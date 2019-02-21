@@ -33,7 +33,7 @@ class FileSorter<T> {
             try (BufferedWriter bw = new BufferedWriter(fw)) {
                 try (PrintWriter pw = new PrintWriter(bw)) {
 
-                    //начинаем бегать по входным файлам
+                    //read in files
                     while (true) {
 
                         T min = null;//минимальный элемент из всех открытых файлов

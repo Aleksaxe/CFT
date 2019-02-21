@@ -9,14 +9,12 @@ class FileHead<T> {
     private BufferedReader br;
     private FileReader reader;
     private boolean finishReached;
-    //Бифункция для сравнивания
     private BiFunction<T, T, Integer> comparer;
-    //Функциия для приведения
     private Function<String, T> converter;
 
 
     /**
-     * @param filepath путь к читаемому файлу
+     * @param filepath path to readable file
      * @throws FileNotFoundException
      */
     FileHead(File filepath, BiFunction<T, T, Integer> comparer, Function<String, T> converter) {
@@ -61,17 +59,17 @@ class FileHead<T> {
                 break;
             }
         }
-        //если читать больше нечего то  закрываем поток
+
         if (line == null) {
             finishReached = true;
             close();
         }
-        // и присваиваем данные...
+
         headData = data;
 
     }
 
-    //закрываем ридеры
+
     private void close() throws IOException {
         br.close();
         reader.close();
