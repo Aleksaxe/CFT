@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CFT.iml" filepath="$PROJECT_DIR$/CFT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/reCFT.iml" filepath="$PROJECT_DIR$/reCFT.iml" />
     </modules>
   </component>
 </project>
