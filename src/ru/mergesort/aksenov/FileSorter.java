@@ -1,4 +1,4 @@
-package ru.cft.aksenov;
+package ru.mergesort.aksenov;
 import java.io.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;

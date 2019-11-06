@@ -1,16 +1,12 @@
-package ru.cft.aksenov;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import static ru.cft.aksenov.GetTestFile.checkOutFile;
-import static ru.cft.aksenov.GetTestFile.getTestFiles;
+package ru.mergesort.aksenov;
+import static ru.mergesort.aksenov.GetTestFile.checkOutFile;
+import static ru.mergesort.aksenov.GetTestFile.getTestFiles;
 
 class Launch {
     Launch(String[] args) throws Exception {
         LaunchArgs commandlineArguments = new LaunchArgs(args);
         if (commandlineArguments.needToCreate()) {
-            getTestFiles(3, 5000, 100);
+            GetTestFile.getTestFiles(2, 5000,commandlineArguments.getDir());
         }
         int sortDir = commandlineArguments.getSortDirection();
 
@@ -18,11 +14,11 @@ class Launch {
             sortString(commandlineArguments, sortDir);
         } else sortInteger(commandlineArguments, sortDir);
 
-        checkOutFile("E:\\mergeSortTest\\out.txt",
-                s -> Integer.parseInt(s), (i1, i2) -> i2.compareTo(i1), 1);
+        GetTestFile.checkOutFile(commandlineArguments.getOutFile(),
+                Integer::parseInt, (i1, i2) -> i2.compareTo(i1), 1);
     }
 
-    void sortString(LaunchArgs commandlineArguments, int sortDir) throws Exception {
+    private void sortString(LaunchArgs commandlineArguments, int sortDir) throws Exception {
         FileSorter<String> fileSorter = new FileSorter<>(
                 commandlineArguments.getInFiles(),
                 commandlineArguments.getOutFile(),
@@ -39,7 +35,7 @@ class Launch {
 
     }
 
-    void sortInteger(LaunchArgs commandlineArguments, int sortDir) throws Exception {
+    private void sortInteger(LaunchArgs commandlineArguments, int sortDir) throws Exception {
         FileSorter<Integer> fileSorter = new FileSorter<>(
                 commandlineArguments.getInFiles(),
                 commandlineArguments.getOutFile(),
@@ -49,7 +45,7 @@ class Launch {
                     if (i2 == null) return -sortDir;
                     return (i2 - i1) * sortDir;
                 },
-                s -> Integer.parseInt(s)
+                Integer::parseInt
         );
         fileSorter.outWrite();
 

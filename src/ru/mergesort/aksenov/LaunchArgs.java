@@ -1,7 +1,6 @@
-package ru.cft.aksenov;
+package ru.mergesort.aksenov;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ class LaunchArgs {
     }
 
     /**
-     *Sort direction
+     * Sort direction
      */
     int getSortDirection() {
 
@@ -29,7 +28,7 @@ class LaunchArgs {
     }
 
     /**
-     *Input files type -i numbers \ -s characters
+     * Input files type -i numbers \ -s characters
      */
     boolean isOperatingStrings() throws Exception {
         for (String commandLineArgument : commandLineArguments) {
@@ -39,39 +38,55 @@ class LaunchArgs {
         }
         throw new Exception("Параметры -i или -s являются обязательными");
     }
+
     boolean needToCreate() throws Exception {
         for (String commandLineArgument : commandLineArguments) {
             if (commandLineArgument.equals("-y")) return true;
             if (commandLineArgument.equals("-n")) return false;
-
         }
-        throw new Exception("Параметры -i или -s являются обязательными");
+        throw new Exception("Что-то не так с созданием фалов!");
     }
+
+    String getDir() throws Exception {
+        for (String commandLineArgument : commandLineArguments) {
+            if (!commandLineArgument.startsWith("-")) return commandLineArgument;
+        }
+
+        throw new Exception("Не указанна директория");
+    }
+
     /**
-     *Processing output file argument
+     * Processing output file argument
      */
 
     String getOutFile() throws Exception {
+        boolean skipOut = false;
         for (String commandLineArgument : commandLineArguments) {
-            if (!commandLineArgument.startsWith("-")) return commandLineArgument;
+            if (!commandLineArgument.startsWith("-")) {
+                if (!skipOut) {
+                    skipOut = true;
+                } else {
+                    return commandLineArgument;
+                }
+            }
+
         }
 
         throw new Exception("Выходной файл не указан");
     }
 
     /**
-     *Processing input file argument
+     * Processing input file argument
      */
 
     String[] getInFiles() throws Exception {
-        boolean skipOut = false;
+        int skipToInFiles = 2;
         List<String> result = new ArrayList<>();
 
         for (String commandLineArgument : commandLineArguments) {
             if (!commandLineArgument.startsWith("-")) {
-                if (!skipOut) {
-                    skipOut = true;
-
+                if (skipToInFiles != 0) {
+                    --skipToInFiles;
                 } else {
                     result.add(commandLineArgument);
                 }

@@ -1,4 +1,4 @@
-package ru.cft.aksenov;
+package ru.mergesort.aksenov;
 
 import java.io.*;
 import java.util.Random;
@@ -13,16 +13,13 @@ class GetTestFile {
      * @param fileName path to file
      * @param start    number of input files
      * @param entries  numbers of maximum entries in file
-     * @param delta    random int from 0 to delta
-     * @return
      * @throws IOException Get or create test files
      */
-    private static int GetTestFile(String fileName, int start, int entries, int delta) throws IOException {
+    private static int GetTestFile(String fileName, int start, int entries,String dir)
+            throws IOException {
         Random r = new Random();
-        int d = r.nextInt(delta);
-        entries = entries - d;
 
-        try (PrintStream fn = new PrintStream(createAndCheckFiles(fileName))) {
+        try (PrintStream fn = new PrintStream(createAndCheckFiles(dir,fileName))) {
             for (int i = start; i < start + entries; i++) {
                 if (r.nextBoolean()) fn.println(i);
             }
@@ -31,13 +28,12 @@ class GetTestFile {
     }
 
     /**
-     * @param entries     numbers of maximum entries in file
-     * @param delta       random int from 0 to delta
+     * @param entries numbers of maximum entries in file
      */
-    static void getTestFiles(int filesNumber, int entries, int delta) throws IOException {
+    static void getTestFiles(int filesNumber, int entries,String dir) throws IOException {
         int start = 0;
         for (int i = 0; i < filesNumber; i++) {
-            start = GetTestFile("E:\\mergeSortTest\\" + (i + 1) + ".txt", start, entries, delta);
+            start = GetTestFile(dir + (i + 1) + ".txt", start, entries,dir);
         }
     }
 
@@ -46,9 +42,9 @@ class GetTestFile {
      * @param parse    parse string to T
      * @param compare  return max of T-T(need for presort)
      * @param dir      direction of sort
-
      */
-    static <T> void checkOutFile(String fileName, Function<String, T> parse, BiFunction<T, T, Integer> compare,
+    static <T> void checkOutFile(String fileName, Function<String, T> parse,
+                                 BiFunction<T, T, Integer> compare,
                                  int dir) throws IOException {
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -80,11 +76,18 @@ class GetTestFile {
     /**
      * @return new File regardless of whether he existed
      */
-    private static File createAndCheckFiles(String fileName) throws IOException {
+    private static File createAndCheckFiles(String dir, String fileName) throws IOException {
+        File dir1 = new File(dir);
+        if (!dir1.exists()){
+            dir1.mkdir();
+        }
         File f = new File(fileName);
-        if (f.exists()){return f;}
-        else f.createNewFile();
+        if (f.exists()) {
+            return f;
+        } else {
 
+            f.createNewFile();
+        }
 
 
         return f;
